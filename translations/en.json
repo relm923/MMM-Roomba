@@ -1,0 +1,8 @@
+{
+  "FULL": "Full",
+  "CHARGING": "Charging",
+  "RETURNING_HOME": "Returning Home",
+  "CLEANING": "Cleaning",
+  "PAUSED": "Paused",
+  "UNKNOWN": "Unknown"
+}

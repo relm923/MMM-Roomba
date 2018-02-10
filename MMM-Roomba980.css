@@ -1,0 +1,15 @@
+.MMM-Roomba980 .name {
+  padding-left: 0;
+  padding-right: 25px;
+  text-align: left;
+}
+
+.MMM-Roomba980 .phase {
+  padding-left: 0;
+  padding-right: 15px;
+}
+
+.MMM-Roomba980 .battery {
+  padding-left: 30px;
+  padding-right: 0;
+}
