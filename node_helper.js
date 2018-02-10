@@ -59,7 +59,7 @@ module.exports = NodeHelper.create({
 		self.Roomba.getRobotState(ROOMBA_STATS).then((state) => {
 			Object.assign(self.stats, {
 				name: state.name,
-				binFull: state.bin.full || true,
+				binFull: state.bin.full,
 				batteryPercent: state.batPct,
 				phase: state.cleanMissionStatus.phase,
 			});
