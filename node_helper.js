@@ -42,12 +42,6 @@ module.exports = NodeHelper.create({
 			return;
 		}
 
-		self.Roomba = new Dorita980.Local(
-			self.config.username,
-			self.config.password,
-			self.config.ipAddress
-		);
-
 		self.scheduleUpdates();
 
 		self.started = true;
@@ -56,7 +50,13 @@ module.exports = NodeHelper.create({
 	updateStats: function() {
 		const self = this;
 
-		self.Roomba.getRobotState(ROOMBA_STATS).then((state) => {
+		let roomba = new Dorita980.Local(
+			self.config.username,
+			self.config.password,
+			self.config.ipAddress
+		);
+
+		roomba.getRobotState(ROOMBA_STATS).then((state) => {
 			Object.assign(self.stats, {
 				name: state.name,
 				binFull: state.bin.full,
@@ -64,11 +64,11 @@ module.exports = NodeHelper.create({
 				phase: state.cleanMissionStatus.phase,
 			});
 
-			self.Roomba.end();
+			roomba.end();
 			self.sendSocketNotification('STATS', self.stats);
 		}).catch((err) => {
 			console.error('Error occurred while fetching stats', err);
-			self.Roomba.end();
+			roomba.end();
 		});
 	},
 
