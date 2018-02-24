@@ -1,18 +1,18 @@
 {
-  "name": "MMM-Roomba980",
+  "name": "MMM-Roomba",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/relm/MMM-Roomba980.git"
+    "url": "git+https://github.com/relm/MMM-Roomba.git"
   },
-  "description": "Roomba980 module for the Magic Mirror.",
-  "main": "MMM-Roomba980.js",
+  "description": "Roomba module for the Magic Mirror.",
+  "main": "MMM-Roomba.js",
   "author": "Reagan Elm",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/relm/MMM-Roomba980/issues"
+    "url": "https://github.com/relm/MMM-Roomba/issues"
   },
-  "homepage": "https://github.com/relm/MMM-Roomba980#readme",
+  "homepage": "https://github.com/relm/MMM-Roomba#readme",
   "keywords": [
     "magic mirror",
     "smart mirror",

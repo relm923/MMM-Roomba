@@ -1,11 +1,11 @@
-# MMM-Roomba980
+# MMM-Roomba
 
 This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror/). It pulls data (name + job, bin and battery status) from a Roomba running on the local network using [Dorita980](https://github.com/koalazak/dorita980) and displays them on the mirror.
 
 ![Alt text](/screenshots/charging_full.png?raw=true "Screenshot")
 
 ## Installation
-1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/relm/MMM-Roomba980.git`. A new folder will appear navigate into it.
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/relm/MMM-Roomba.git`. A new folder will appear navigate into it.
 2. Execute `npm install` to install the node dependencies.
 
 ## Using the module
@@ -15,7 +15,7 @@ To use this module, add the following configuration block to the modules array i
 var config = {
     modules: [
         {
-            module: 'MMM-Roomba980',
+            module: 'MMM-Roomba',
             position: 'top_right',
             header: 'Roomba', // Optional
             config: {

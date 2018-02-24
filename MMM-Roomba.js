@@ -1,13 +1,13 @@
 /* global Module */
 
 /* Magic Mirror
- * Module: MMM-Roomba980
+ * Module: MMM-Roomba
  *
  * By Reagan Elm
  * MIT Licensed.
  */
 
-Module.register('MMM-Roomba980', {
+Module.register('MMM-Roomba', {
 	defaults: {
 		username: '',
 		password: '',
@@ -150,7 +150,7 @@ Module.register('MMM-Roomba980', {
 
 	getStyles() {
 		return [
-			'MMM-Roomba980.css',
+			'MMM-Roomba.css',
 			'font-awesome.css',
 		];
 	},

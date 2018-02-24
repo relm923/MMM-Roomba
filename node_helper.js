@@ -1,5 +1,5 @@
 /* Magic Mirror
- * Node Helper: MMM-Roomba980
+ * Node Helper: MMM-Roomba
  *
  * By Reagan Elm
  * MIT Licensed.
