@@ -37,19 +37,14 @@ var config = {
 
 ## Configuration options
 
-| Option           | Description                                                                                                               |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `username`       | _Required_ Username of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.               |
-| `password`       | _Required_ Password of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.               |
-| `ipAddress`      | _Required_ Local IP address of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.       |
-| `updateInterval` | _Optional_ How often the content will be fetched. <br><br>**Type:** `int`(milliseconds) <br>Default 60000 (1 minute)      |
-| `animationSpeed` | _Optional_ Speed of the update animation. <br><br>**Type:** `int`(milliseconds) <br>Default 2000 milliseconds (2 seconds) |
-
-## Known Issues
-
-- Error: `SSL routines:OPENSSL_internal:NO_CIPHER_MATCH` - Node v12
-
-  Solution: `ROBOT_CIPHERS=AES128-SHA` before staring MagicMirror
+| Option               | Description
+|--------------------- |-----------
+| `robots`             | *Required* Array of robot objects. See below
+| `robots[].username`  | *Required* Username of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.
+| `robots[].password`  | *Required* Password of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.
+| `robots[].ipAddress` | *Required* Local IP address of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.
+| `updateInterval`     | *Optional* How often the content will be fetched. <br><br>**Type:** `int`(milliseconds) <br>Default 60000 (1 minute)
+| `animationSpeed`     | *Optional* Speed of the update animation. <br><br>**Type:** `int`(milliseconds) <br>Default 2000 milliseconds (2 seconds)
 
 ## Dependencies
 
