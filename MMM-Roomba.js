@@ -99,6 +99,9 @@ Module.register('MMM-Roomba', {
 			case 'stop':
 				phaseText = self.translate('PAUSED');
 				break;
+			case 'stuck':
+				phaseText = self.translate('STUCK');
+				break;
 			default:
 				phaseText = `${self.translate('UNKNOWN')}: ${self.stats.phase}`;
 		}
