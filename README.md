@@ -15,20 +15,24 @@ To use this module, add the following configuration block to the modules array i
 
 ```js
 var config = {
-  modules: [
-    {
-      module: "MMM-Roomba",
-      position: "top_right",
-      header: "Roomba", // Optional
-      config: {
-        // See below for configurable options
-        username: "xxxxxxxxxxxxx",
-        password: ":1:1486937829:gktkDoYpWaDxCfGh",
-        ipAddress: "192.168.1.44",
-      },
-    },
-  ],
-};
+    modules: [
+        {
+            module: 'MMM-Roomba',
+            position: 'top_right',
+            header: 'Roomba', // Optional
+            config: {
+                // See below for configurable options
+                robots: [
+                    {
+                        username: 'xxxxxxxxxxxxx',
+                        password: ':1:1486937829:gktkDoYpWaDxCfGh',
+                        ipAddress: '192.168.1.44'
+                    }
+                ]
+            }
+        }
+    ]
+}
 ```
 
 ## Configuration options
