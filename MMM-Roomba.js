@@ -161,7 +161,9 @@ Module.register('MMM-Roomba', {
 	getTranslations() {
 		return {
 			en: 'translations/en.json',
-			es: 'translations/es.json'
+			es: 'translations/es.json',
+			fr: 'translations/fr.json',
+			sv: 'translations/sv.json'
 		};
 	},
 });
