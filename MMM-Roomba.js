@@ -116,7 +116,7 @@ Module.register('MMM-Roomba', {
 		if (self.stats.binFull) {
 			statusHtml = `
 				<td class="bin title bright">
-					<i class="fa fa-trash"></i> ${self.translate('FULL')}
+					<i class="fas fa-trash"></i> ${self.translate('FULL')}
 				</td>
 			`;
 		}
@@ -127,7 +127,7 @@ Module.register('MMM-Roomba', {
 	renderBatteryStatus() {
 		return `
 			<td class="battery">
-				<i class="fa fa-bolt"></i> ${this.stats.batteryPercent}%
+				<i class="fas fa-bolt"></i> ${this.stats.batteryPercent}%
 			</td>`;
 	},
 
