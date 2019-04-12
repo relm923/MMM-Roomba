@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.4] - 2019-04-12
+
+Fix flagged vulnerabilities
+
 ## [1.0.3] - 2019-01-05
 
 Update icons to Font-awesome 5

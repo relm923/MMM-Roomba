@@ -19,16 +19,16 @@
     "roomba"
   ],
   "devDependencies": {
-    "grunt": "^1.0.3",
-    "grunt-eslint": "latest",
+    "grunt": "^1.0.4",
+    "grunt-eslint": "^21.0.0",
     "grunt-jsonlint": "latest",
     "grunt-markdownlint": "^1.1.6",
-    "grunt-stylelint": "latest",
+    "grunt-stylelint": "^0.10.1",
     "grunt-yamllint": "latest",
     "stylelint-config-standard": "latest",
-    "time-grunt": "latest"
+    "time-grunt": "^2.0.0"
   },
   "dependencies": {
-    "dorita980": "^3.0.12"
+    "dorita980": "^3.1.1"
   }
 }
