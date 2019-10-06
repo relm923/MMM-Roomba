@@ -1,6 +1,6 @@
 {
   "name": "MMM-Roomba",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/relm/MMM-Roomba.git"
@@ -20,15 +20,15 @@
   ],
   "devDependencies": {
     "grunt": "^1.0.4",
-    "grunt-eslint": "^21.0.0",
-    "grunt-jsonlint": "latest",
+    "grunt-eslint": "^21.1.0",
+    "grunt-jsonlint": "^2.0.0",
     "grunt-markdownlint": "^1.1.6",
     "grunt-stylelint": "^0.10.1",
     "grunt-yamllint": "latest",
-    "stylelint-config-standard": "latest",
+    "stylelint-config-standard": "^19.0.0",
     "time-grunt": "^2.0.0"
   },
   "dependencies": {
-    "dorita980": "^3.1.1"
+    "dorita980": "^3.1.4"
   }
 }

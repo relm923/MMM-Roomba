@@ -2,6 +2,10 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.5] - 2019-10-05
+
+Fix flagged vulnerabilities
+
 ## [1.0.4] - 2019-04-12
 
 Fix flagged vulnerabilities
