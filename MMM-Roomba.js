@@ -73,14 +73,16 @@ Module.register('MMM-Roomba', {
 		wrapper.innerHTML = '';
 
 		for (let index = 0; index < self.stats.length; index++) {
-			wrapper.innerHTML += `
-				<tr>
-					${self.renderName(index)}
-					${self.renderPhase(index)}
-					${self.renderBinStatus(index)}
-					${self.renderBatteryStatus(index)}
-				</tr>
-			`;
+			if (self.stats[index]) {
+				wrapper.innerHTML += `
+					<tr>
+						${self.renderName(index)}
+						${self.renderPhase(index)}
+						${self.renderBinStatus(index)}
+						${self.renderBatteryStatus(index)}
+					</tr>
+				`;
+			}
 		}
 
 		return wrapper;
