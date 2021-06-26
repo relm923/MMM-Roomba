@@ -6,7 +6,7 @@ This is a module for the [MagicMirror²](https://github.com/MichMich/MagicMirror
 
 ## Installation
 
-1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/relm/MMM-Roomba.git`. A new folder will appear navigate into it.
+1. Navigate into your MagicMirror's `modules` folder and execute `git clone https://github.com/relm923/MMM-Roomba.git`. A new folder will appear navigate into it.
 2. Execute `npm install` to install the node dependencies.
 
 ## Using the module
