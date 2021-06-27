@@ -9,6 +9,9 @@
   "main": "MMM-Roomba.js",
   "author": "Reagan Elm",
   "license": "MIT",
+  "scripts": {
+    "preinstall": "npx npm-force-resolutions"
+  },
   "bugs": {
     "url": "https://github.com/relm/MMM-Roomba/issues"
   },
@@ -18,6 +21,9 @@
     "smart mirror",
     "roomba"
   ],
+  "resolutions": {
+    "ws": "7.5.0"
+  },
   "devDependencies": {
     "grunt": "^1.4.1",
     "grunt-eslint": "^23.0.0",
@@ -25,6 +31,7 @@
     "grunt-markdownlint": "^3.1.2",
     "grunt-stylelint": "^0.16.0",
     "grunt-yamllint": "^0.3.0",
+    "npm-force-resolutions": "^0.0.10",
     "stylelint-config-standard": "^22.0.0",
     "time-grunt": "^2.0.0"
   },
