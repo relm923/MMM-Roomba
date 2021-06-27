@@ -6,95 +6,98 @@
  */
 
 const NodeHelper = require('node_helper');
-const Dorita980  = require('dorita980');
+const Dorita980 = require('dorita980');
 
 const REQUIRED_FIELDS = ['username', 'password', 'ipAddress'];
 const ROOMBA_STATS = ['bin', 'name', 'batPct', 'cleanMissionStatus'];
 
 module.exports = NodeHelper.create({
-	start: function() {
-		const self = this;
+  start: function () {
+    const self = this;
 
-		self.started = false;
-		self.config = [];
-		self.stats = {};
-	},
+    self.started = false;
+    self.config = [];
+    self.stats = {};
+  },
 
-	socketNotificationReceived: function(notification, payload) {
-		const self = this;
+  socketNotificationReceived: function (notification, payload) {
+    const self = this;
 
-		switch (notification) {
-			case 'START':
-				self.handleStartNotification(payload);
-		}
-	},
+    switch (notification) {
+      case 'START':
+        self.handleStartNotification(payload);
+    }
+  },
 
-	handleStartNotification: function(payload) {
-		const self = this;
+  handleStartNotification: function (payload) {
+    const self = this;
 
-		if (self.started) {
-			return;
-		}
+    if (self.started) {
+      return;
+    }
 
-		self.config = payload;
+    self.config = payload;
 
-		if (self.isInvalidConfig()) {
-			return;
-		}
+    if (self.isInvalidConfig()) {
+      return;
+    }
 
-		self.scheduleUpdates();
+    self.scheduleUpdates();
 
-		self.started = true;
-	},
+    self.started = true;
+  },
 
-	updateStats: function() {
-		const self = this;
+  updateStats: function () {
+    const self = this;
 
-		let roomba = new Dorita980.Local(
-			self.config.username,
-			self.config.password,
-			self.config.ipAddress
-		);
+    let roomba = new Dorita980.Local(
+      self.config.username,
+      self.config.password,
+      self.config.ipAddress
+    );
 
-		roomba.getRobotState(ROOMBA_STATS).then((state) => {
-			Object.assign(self.stats, {
-				name: state.name,
-				binFull: state.bin.full,
-				batteryPercent: state.batPct,
-				phase: state.cleanMissionStatus.phase,
-			});
+    roomba
+      .getRobotState(ROOMBA_STATS)
+      .then((state) => {
+        Object.assign(self.stats, {
+          name: state.name,
+          binFull: state.bin.full,
+          batteryPercent: state.batPct,
+          phase: state.cleanMissionStatus.phase,
+        });
 
-			roomba.end();
-			self.sendSocketNotification('STATS', self.stats);
-		}).catch((err) => {
-			console.error('Error occurred while fetching stats', err);
-			roomba.end();
-		});
-	},
+        roomba.end();
+        self.sendSocketNotification('STATS', self.stats);
+      })
+      .catch((err) => {
+        console.error('Error occurred while fetching stats', err);
+        roomba.end();
+      });
+  },
 
-	isInvalidConfig: function() {
-		const self = this;
+  isInvalidConfig: function () {
+    const self = this;
 
-		let missingField = REQUIRED_FIELDS.find((field) => {
-			return !self.config[field];
-		});
+    let missingField = REQUIRED_FIELDS.find((field) => {
+      return !self.config[field];
+    });
 
-		if (missingField) {
-			self.sendSocketNotification(
-				'ERROR',
-				`<i>Confg.${missingField}</i> is required for module: ${self.name}.`
-			);
-		}
+    if (missingField) {
+      self.sendSocketNotification(
+        'ERROR',
+        `<i>Confg.${missingField}</i> is required for module: ${self.name}.`
+      );
+    }
 
-		return !!missingField;
-	},
+    return !!missingField;
+  },
 
-	scheduleUpdates() {
-		const self = this;
+  scheduleUpdates() {
+    const self = this;
 
-		self.updateStats();
-		setInterval(function() {
-			self.updateStats();
-		}, self.config.updateInterval);
-	},
+    self.updateStats();
+    setInterval(function () {
+      self.updateStats();
+    }, self.config.updateInterval);
+  },
 });

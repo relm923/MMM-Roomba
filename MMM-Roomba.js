@@ -1,5 +1,3 @@
-/* global Module */
-
 /* Magic Mirror
  * Module: MMM-Roomba
  *
@@ -8,65 +6,65 @@
  */
 
 Module.register('MMM-Roomba', {
-	defaults: {
-		username: '',
-		password: '',
-		ipAddress: '',
-		updateInterval: 60 * 1000, // 1 miniute
-		animationSpeed: 2 * 1000, // 2 seconds
-	},
+  defaults: {
+    username: '',
+    password: '',
+    ipAddress: '',
+    updateInterval: 60 * 1000, // 1 miniute
+    animationSpeed: 2 * 1000, // 2 seconds
+  },
 
-	requiresVersion: '2.1.0',
+  requiresVersion: '2.1.0',
 
-	start() {
-		const self = this;
+  start() {
+    const self = this;
 
-		self.loaded = false;
-		self.stats = {};
+    self.loaded = false;
+    self.stats = {};
 
-		self.sendSocketNotification('START', self.config);
-		Log.info('Starting module: ' + self.name);
-	},
+    self.sendSocketNotification('START', self.config);
+    Log.info('Starting module: ' + self.name);
+  },
 
-	getDom() {
-		const self = this;
+  getDom() {
+    const self = this;
 
-		if (self.error) {
-			return self.renderError();
-		}
+    if (self.error) {
+      return self.renderError();
+    }
 
-		if (!self.loaded) {
-			return self.renderLoading();
-		}
+    if (!self.loaded) {
+      return self.renderLoading();
+    }
 
-		return self.renderStats();
-	},
+    return self.renderStats();
+  },
 
-	renderError() {
-		const self = this;
+  renderError() {
+    const self = this;
 
-		let wrapper = document.createElement('div');
-		wrapper.className = 'dimmed light small';
-		wrapper.innerHTML = self.error;
-		return wrapper;
-	},
+    let wrapper = document.createElement('div');
+    wrapper.className = 'dimmed light small';
+    wrapper.innerHTML = self.error;
+    return wrapper;
+  },
 
-	renderLoading() {
-		const self = this;
+  renderLoading() {
+    const self = this;
 
-		let wrapper = document.createElement('div');
-		wrapper.className = 'dimmed light small';
-		wrapper.innerHTML = self.translate('LOADING');
+    let wrapper = document.createElement('div');
+    wrapper.className = 'dimmed light small';
+    wrapper.innerHTML = self.translate('LOADING');
 
-		return wrapper;
-	},
+    return wrapper;
+  },
 
-	renderStats() {
-		const self = this;
+  renderStats() {
+    const self = this;
 
-		let wrapper = document.createElement('table');
-		wrapper.className = 'small';
-		wrapper.innerHTML = `
+    let wrapper = document.createElement('table');
+    wrapper.className = 'small';
+    wrapper.innerHTML = `
 			<tr>
 				${self.renderName()}
 				${self.renderPhase()}
@@ -75,95 +73,92 @@ Module.register('MMM-Roomba', {
 			</tr>
 		`;
 
-		return wrapper;
-	},
+    return wrapper;
+  },
 
-	renderName() {
-		return `<td class="name">${this.stats.name}</td>`;
-	},
+  renderName() {
+    return `<td class="name">${this.stats.name}</td>`;
+  },
 
-	renderPhase() {
-		const self = this;
+  renderPhase() {
+    const self = this;
 
-		let phaseText;
-		switch (self.stats.phase) {
-			case 'charge':
-				phaseText = self.translate('CHARGING');
-				break;
-			case 'hmUsrDock':
-				phaseText = self.translate('RETURNING_HOME');
-				break;
-			case 'run':
-				phaseText = self.translate('CLEANING');
-				break;
-			case 'stop':
-				phaseText = self.translate('PAUSED');
-				break;
-			case 'stuck':
-				phaseText = self.translate('STUCK');
-				break;
-			default:
-				phaseText = `${self.translate('UNKNOWN')}: ${self.stats.phase}`;
-		}
+    let phaseText;
+    switch (self.stats.phase) {
+      case 'charge':
+        phaseText = self.translate('CHARGING');
+        break;
+      case 'hmUsrDock':
+        phaseText = self.translate('RETURNING_HOME');
+        break;
+      case 'run':
+        phaseText = self.translate('CLEANING');
+        break;
+      case 'stop':
+        phaseText = self.translate('PAUSED');
+        break;
+      case 'stuck':
+        phaseText = self.translate('STUCK');
+        break;
+      default:
+        phaseText = `${self.translate('UNKNOWN')}: ${self.stats.phase}`;
+    }
 
-		return `<td class="phase title bright">${phaseText}</td>`;
-	},
+    return `<td class="phase title bright">${phaseText}</td>`;
+  },
 
-	renderBinStatus() {
-		const self = this;
+  renderBinStatus() {
+    const self = this;
 
-		let statusHtml = '';
-		if (self.stats.binFull) {
-			statusHtml = `
-				<td class="bin title bright">
-					<i class="fas fa-trash"></i> ${self.translate('FULL')}
-				</td>
-			`;
-		}
+    let statusHtml = '';
+    if (self.stats.binFull) {
+      statusHtml = `
+        <td class="bin title bright">
+          <i class="fas fa-trash"></i> ${self.translate('FULL')}
+        </td>
+      `;
+    }
 
-		return statusHtml;
-	},
+    return statusHtml;
+  },
 
-	renderBatteryStatus() {
-		return `
-			<td class="battery">
-				<i class="fas fa-bolt"></i> ${this.stats.batteryPercent}%
-			</td>`;
-	},
+  renderBatteryStatus() {
+    return `
+      <td class="battery">
+        <i class="fas fa-bolt"></i> ${this.stats.batteryPercent}%
+      </td>`;
+  },
 
-	socketNotificationReceived(notification, payload) {
-		const self = this;
+  socketNotificationReceived(notification, payload) {
+    const self = this;
 
-		switch (notification) {
-			case 'STATS':
-				self.loaded = true;
-				self.stats = payload;
-				break;
-			case 'ERROR':
-				self.error = payload;
-				break;
-		}
+    switch (notification) {
+      case 'STATS':
+        self.loaded = true;
+        self.stats = payload;
+        break;
+      case 'ERROR':
+        self.error = payload;
+        break;
+    }
 
-		this.updateDom(self.config.animationSpeed);
-	},
+    this.updateDom(self.config.animationSpeed);
+  },
 
-	getScripts() {
-		return [];
-	},
+  getScripts() {
+    return [];
+  },
 
-	getStyles() {
-		return [
-			'MMM-Roomba.css',
-			'font-awesome.css',
-		];
-	},
+  getStyles() {
+    return ['MMM-Roomba.css', 'font-awesome.css'];
+  },
 
-	getTranslations() {
-		return {
-			en: 'translations/en.json',
-			es: 'translations/es.json',
-			fr: 'translations/fr.json',
-			sv: 'translations/sv.json'
-		};
-	},
+  getTranslations() {
+    return {
+      en: 'translations/en.json',
+      es: 'translations/es.json',
+      fr: 'translations/fr.json',
+      sv: 'translations/sv.json',
+    };
+  },
 });
