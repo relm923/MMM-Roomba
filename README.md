@@ -15,31 +15,36 @@ To use this module, add the following configuration block to the modules array i
 
 ```js
 var config = {
-  modules: [
-    {
-      module: "MMM-Roomba",
-      position: "top_right",
-      header: "Roomba", // Optional
-      config: {
-        // See below for configurable options
-        username: "xxxxxxxxxxxxx",
-        password: ":1:1486937829:gktkDoYpWaDxCfGh",
-        ipAddress: "192.168.1.44",
-      },
-    },
-  ],
-};
+    modules: [
+        {
+            module: 'MMM-Roomba',
+            position: 'top_right',
+            header: 'Roomba', // Optional
+            config: {
+                // See below for configurable options
+                robots: [
+                    {
+                        username: 'xxxxxxxxxxxxx',
+                        password: ':1:1486937829:gktkDoYpWaDxCfGh',
+                        ipAddress: '192.168.1.44'
+                    }
+                ]
+            }
+        }
+    ]
+}
 ```
 
 ## Configuration options
 
-| Option           | Description                                                                                                               |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `username`       | _Required_ Username of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.               |
-| `password`       | _Required_ Password of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.               |
-| `ipAddress`      | _Required_ Local IP address of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.       |
-| `updateInterval` | _Optional_ How often the content will be fetched. <br><br>**Type:** `int`(milliseconds) <br>Default 60000 (1 minute)      |
-| `animationSpeed` | _Optional_ Speed of the update animation. <br><br>**Type:** `int`(milliseconds) <br>Default 2000 milliseconds (2 seconds) |
+| Option               | Description
+|--------------------- |-----------
+| `robots`             | *Required* Array of robot objects. See below
+| `robots[].username`  | *Required* Username of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.
+| `robots[].password`  | *Required* Password of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.
+| `robots[].ipAddress` | *Required* Local IP address of Roomba. See [Dorita980](https://github.com/koalazak/dorita980) for more information.
+| `updateInterval`     | *Optional* How often the content will be fetched. <br><br>**Type:** `int`(milliseconds) <br>Default 60000 (1 minute)
+| `animationSpeed`     | *Optional* Speed of the update animation. <br><br>**Type:** `int`(milliseconds) <br>Default 2000 milliseconds (2 seconds)
 
 ## Known Issues
 

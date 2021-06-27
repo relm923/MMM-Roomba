@@ -7,20 +7,23 @@
 
 Module.register('MMM-Roomba', {
   defaults: {
-    username: '',
-    password: '',
-    ipAddress: '',
+    robots: [
+      {
+        username: '',
+        password: '',
+        ipAddress: '',
+      },
+    ],
     updateInterval: 60 * 1000, // 1 miniute
     animationSpeed: 2 * 1000, // 2 seconds
   },
-
   requiresVersion: '2.1.0',
 
   start() {
     const self = this;
 
     self.loaded = false;
-    self.stats = {};
+    self.stats = [];
 
     self.sendSocketNotification('START', self.config);
     Log.info('Starting module: ' + self.name);
@@ -62,29 +65,33 @@ Module.register('MMM-Roomba', {
   renderStats() {
     const self = this;
 
-    let wrapper = document.createElement('table');
+    const wrapper = document.createElement('table');
     wrapper.className = 'small';
-    wrapper.innerHTML = `
-			<tr>
-				${self.renderName()}
-				${self.renderPhase()}
-				${self.renderBinStatus()}
-				${self.renderBatteryStatus()}
-			</tr>
-		`;
+    wrapper.innerHTML = '';
+
+    self.stats.forEach((_, index) => {
+      wrapper.innerHTML += `
+        <tr>
+          ${self.renderName(index)}
+          ${self.renderPhase(index)}
+          ${self.renderBinStatus(index)}
+          ${self.renderBatteryStatus(index)}
+        </tr>
+      `;
+    });
 
     return wrapper;
   },
 
-  renderName() {
-    return `<td class="name">${this.stats.name}</td>`;
+  renderName(index) {
+    return `<td class="name">${this.stats[index].name}</td>`;
   },
 
-  renderPhase() {
+  renderPhase(index) {
     const self = this;
 
     let phaseText;
-    switch (self.stats.phase) {
+    switch (self.stats[index].phase) {
       case 'charge':
         phaseText = self.translate('CHARGING');
         break;
@@ -101,17 +108,17 @@ Module.register('MMM-Roomba', {
         phaseText = self.translate('STUCK');
         break;
       default:
-        phaseText = `${self.translate('UNKNOWN')}: ${self.stats.phase}`;
+        phaseText = `${self.translate('UNKNOWN')}: ${self.stats[index].phase}`;
     }
 
     return `<td class="phase title bright">${phaseText}</td>`;
   },
 
-  renderBinStatus() {
+  renderBinStatus(index) {
     const self = this;
 
     let statusHtml = '';
-    if (self.stats.binFull) {
+    if (self.stats[index].binFull) {
       statusHtml = `
         <td class="bin title bright">
           <i class="fas fa-trash"></i> ${self.translate('FULL')}
@@ -122,10 +129,10 @@ Module.register('MMM-Roomba', {
     return statusHtml;
   },
 
-  renderBatteryStatus() {
+  renderBatteryStatus(index) {
     return `
       <td class="battery">
-        <i class="fas fa-bolt"></i> ${this.stats.batteryPercent}%
+        <i class="fa fa-bolt"></i> ${this.stats[index].batteryPercent}%
       </td>`;
   },
 

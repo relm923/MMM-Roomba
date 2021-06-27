@@ -8,7 +8,8 @@
 const NodeHelper = require('node_helper');
 const Dorita980 = require('dorita980');
 
-const REQUIRED_FIELDS = ['username', 'password', 'ipAddress'];
+const REQUIRED_ROOT_FIELDS = ['robots'];
+const REQUIRED_ROBOTS_FIELDS = ['username', 'password', 'ipAddress'];
 const ROOMBA_STATS = ['bin', 'name', 'batPct', 'cleanMissionStatus'];
 
 module.exports = NodeHelper.create({
@@ -17,7 +18,7 @@ module.exports = NodeHelper.create({
 
     self.started = false;
     self.config = [];
-    self.stats = {};
+    self.stats = [];
   },
 
   socketNotificationReceived: function (notification, payload) {
@@ -47,23 +48,22 @@ module.exports = NodeHelper.create({
     self.started = true;
   },
 
-  updateStats: function () {
+  updateStats: function (index) {
     const self = this;
 
-    let roomba = new Dorita980.Local(
-      self.config.username,
-      self.config.password,
-      self.config.ipAddress
-    );
+    const { ipAddress, password, username } = self.config.robots[index];
+
+    const roomba = new Dorita980.Local(username, password, ipAddress);
 
     roomba
       .getRobotState(ROOMBA_STATS)
-      .then((state) => {
-        Object.assign(self.stats, {
-          name: state.name,
-          binFull: state.bin.full,
-          batteryPercent: state.batPct,
-          phase: state.cleanMissionStatus.phase,
+      .then(({ batPct, bin, cleanMissionStatus, name }) => {
+        self.stats[index] = self.stats[index] || {};
+        Object.assign(self.stats[index], {
+          name,
+          binFull: bin.full,
+          batteryPercent: batPct,
+          phase: cleanMissionStatus.phase,
         });
 
         roomba.end();
@@ -78,26 +78,54 @@ module.exports = NodeHelper.create({
   isInvalidConfig: function () {
     const self = this;
 
-    let missingField = REQUIRED_FIELDS.find((field) => {
+    const missingRootField = REQUIRED_ROOT_FIELDS.find((field) => {
       return !self.config[field];
     });
 
-    if (missingField) {
+    if (missingRootField) {
       self.sendSocketNotification(
         'ERROR',
-        `<i>Confg.${missingField}</i> is required for module: ${self.name}.`
+        `<i>Confg.${missingRootField}</i> is required for module: ${self.name}.`
       );
+      return true;
     }
 
-    return !!missingField;
+    if (!Array.isArray(self.config.robots)) {
+      self.sendSocketNotification(
+        'ERROR',
+        `<i>Confg.robots</i> is required to be an array for module: ${self.name}.`
+      );
+      return true;
+    }
+
+    let missingRobotsField;
+    self.config.robots.forEach((robot) => {
+      const missingField = REQUIRED_ROBOTS_FIELDS.find(
+        (field) => !robot[field]
+      );
+
+      if (missingField) {
+        missingRobotsField = missingField;
+      }
+    });
+
+    if (missingRobotsField) {
+      self.sendSocketNotification(
+        'ERROR',
+        `<i>Confg.robots[].${missingRobotsField}</i> is required for module: ${self.name}.`
+      );
+      return true;
+    }
+
+    return false;
   },
 
   scheduleUpdates() {
     const self = this;
 
-    self.updateStats();
-    setInterval(function () {
-      self.updateStats();
-    }, self.config.updateInterval);
+    self.config.robots.forEach((_, index) => {
+      self.updateStats(index);
+      setInterval(() => self.updateStats(index), self.config.updateInterval);
+    });
   },
 });
